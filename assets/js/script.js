@@ -37,17 +37,56 @@ function toggleInactive (element) {
    element.classList.toggle("inactive");
 }
 
-beforeButtonEl.addEventListener("click", function(){
+function prevSlide () {
    toggleInactive(secondaryImgs[i]);
    i--;
    imgEl.src = `${photos[i < 0 ?  i = photos.length - 1 : i].path}`; // Ternary operator to have a loop (skip to first img to last one)
-   toggleInactive(secondaryImgs[i])
-});
+   toggleInactive(secondaryImgs[i]);
+}
 
-afterButtonEl.addEventListener("click", function(){
+beforeButtonEl.addEventListener("click", prevSlide);
+
+function nextSlide () {
    toggleInactive(secondaryImgs[i]);
    i++;   
    imgEl.src = `${photos[i > photos.length - 1 ? i = 0 : i].path}`;  // Ternary operator to have a loop (skip to last img to first one)
-   toggleInactive(secondaryImgs[i])
+   toggleInactive(secondaryImgs[i]);
+}
+
+afterButtonEl.addEventListener("click", nextSlide);
+
+const autoBtnEl = document.getElementById("auto-btn");
+const invertBtnEl = document.getElementById("invert-btn");
+
+let manual = true;
+let invert = false;
+let autoSlider;
+
+autoBtnEl.addEventListener("click", function(){
+   if (manual) {
+      autoSlider = setInterval(nextSlide, 1000);      
+      autoBtnEl.classList.toggle("active");
+      invertBtnEl.classList.toggle("disabled");
+      manual = false;
+   } else {
+      clearInterval(autoSlider);
+      autoBtnEl.classList.toggle("active");
+      invertBtnEl.classList.toggle("disabled");
+      manual = true;
+      invert = false;
+   }
 });
 
+
+invertBtnEl.addEventListener("click", function(){
+   if (invert == false) {
+      clearInterval(autoSlider);
+      autoSlider = setInterval(prevSlide, 1000);
+      invert = true;
+   } else {
+      clearInterval(autoSlider);
+      autoSlider = setInterval(nextSlide, 1000);
+      invert = false;
+   }
+   
+})
