@@ -11,8 +11,9 @@ const photos = [
    {path: "./assets/img/5.jpg"},
 ]
 
+let i = 0;  // i is the position in the array = active img
+
 // Main img
-let i = 0; // i is the position in the array
 const imgEl = document.createElement("img");
 imgEl.src = `${photos[i].path}`; // add src dynamically
 carouselEl.append(imgEl);
@@ -20,9 +21,9 @@ carouselEl.append(imgEl);
 // Secondary imgs
 photos.forEach((photo, index) => {
    const secondaryImgEl = document.createElement("img");
-   secondaryImgEl.src = `${photos[index].path}`; // add src dynamically
+   secondaryImgEl.src = `${photos[index].path}`;   // add src dynamically
    secondaryImgEl.style.width = `calc(100% / ${photos.length})`;   
-   (index == i ? "" : secondaryImgEl.classList.toggle("inactive")); // set inactive for all the photos expect the first
+   (index == i ? "" : secondaryImgEl.classList.toggle("inactive"));  // set inactive for all the photos expect the first
    secondaryImgContainer.append(secondaryImgEl);
 });
 
@@ -31,16 +32,14 @@ const secondaryImgs = document.querySelectorAll("#images > img");
 beforeButtonEl.addEventListener("click", function(){
    secondaryImgs[i].classList.toggle("inactive");
    i--;
-   imgEl.src = `${photos[i < 0 ?  i = photos.length - 1 : i].path}`;
-   // Ternary operator to have a loop (skip to first img to last one)
+   imgEl.src = `${photos[i < 0 ?  i = photos.length - 1 : i].path}`; // Ternary operator to have a loop (skip to first img to last one)
    secondaryImgs[i].classList.toggle("inactive")
 });
 
 afterButtonEl.addEventListener("click", function(){
    secondaryImgs[i].classList.toggle("inactive");
    i++;   
-   imgEl.src = `${photos[i > photos.length - 1 ? i = 0 : i].path}`;
-   // Ternary operator to have a loop (skip to last img to first one)
+   imgEl.src = `${photos[i > photos.length - 1 ? i = 0 : i].path}`;  // Ternary operator to have a loop (skip to last img to first one)
    secondaryImgs[i].classList.toggle("inactive")
 });
 
