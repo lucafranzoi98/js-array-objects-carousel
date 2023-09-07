@@ -65,13 +65,14 @@ let autoSlider;
 autoBtnEl.addEventListener("click", function(){
    if (manual) {
       autoSlider = setInterval(nextSlide, 1000);      
-      autoBtnEl.classList.toggle("active");
+      autoBtnEl.classList.toggle("btn-success");
       invertBtnEl.classList.toggle("disabled");
       manual = false;
    } else {
       clearInterval(autoSlider);
-      autoBtnEl.classList.toggle("active");
+      autoBtnEl.classList.toggle("btn-success");
       invertBtnEl.classList.toggle("disabled");
+      invertBtnEl.classList.remove("btn-success");
       manual = true;
       invert = false;
    }
@@ -82,11 +83,12 @@ invertBtnEl.addEventListener("click", function(){
    if (invert == false) {
       clearInterval(autoSlider);
       autoSlider = setInterval(prevSlide, 1000);
+      invertBtnEl.classList.toggle("btn-success");
       invert = true;
    } else {
       clearInterval(autoSlider);
       autoSlider = setInterval(nextSlide, 1000);
+      invertBtnEl.classList.toggle("btn-success");
       invert = false;
-   }
-   
+   }   
 })
