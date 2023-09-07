@@ -29,17 +29,25 @@ photos.forEach((photo, index) => {
 
 const secondaryImgs = document.querySelectorAll("#images > img");
 
+/**
+ * Toggle the class inactive of an element
+ * @param {string} element 
+ */
+function toggleInactive (element) {
+   element.classList.toggle("inactive");
+}
+
 beforeButtonEl.addEventListener("click", function(){
-   secondaryImgs[i].classList.toggle("inactive");
+   toggleInactive(secondaryImgs[i]);
    i--;
    imgEl.src = `${photos[i < 0 ?  i = photos.length - 1 : i].path}`; // Ternary operator to have a loop (skip to first img to last one)
-   secondaryImgs[i].classList.toggle("inactive")
+   toggleInactive(secondaryImgs[i])
 });
 
 afterButtonEl.addEventListener("click", function(){
-   secondaryImgs[i].classList.toggle("inactive");
+   toggleInactive(secondaryImgs[i]);
    i++;   
    imgEl.src = `${photos[i > photos.length - 1 ? i = 0 : i].path}`;  // Ternary operator to have a loop (skip to last img to first one)
-   secondaryImgs[i].classList.toggle("inactive")
+   toggleInactive(secondaryImgs[i])
 });
 
